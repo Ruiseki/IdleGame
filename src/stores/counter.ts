@@ -2,11 +2,20 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-  function increment() {
-    count.value++
+
+  const point = ref(0)
+  const mainCoef = ref(1)
+  const clickCoef = ref(1)
+
+  setInterval(() => {
+    point.value += 1 * mainCoef.value
+  }, 5000)
+
+  function mainClick()
+  {
+      point.value += 1 * clickCoef.value
+      console.log(point);
   }
 
-  return { count, doubleCount, increment }
+  return { point, mainCoef, clickCoef, mainClick }
 })
