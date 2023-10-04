@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { useCounterStore } from '@/stores/counter'
+
+let Students = useCounterStore() 
+
+
 </script>
 
 <template>
     <header id="header">
         <div id="stats">
-            <p>Students 🧑‍🎓</p>
-            <p>Money 💰</p>
+            <p>Students 🧑‍🎓 {{ Students.count }} </p>
+            <p>Money 💰 </p>
         </div>
         <nav id="navigation">
             <RouterLink to="/">Home</RouterLink>

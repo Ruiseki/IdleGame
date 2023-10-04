@@ -6,7 +6,7 @@ import { createConnection } from "mysql2/promise"
 import { init as shopInit } from './modules/shop.js'
 
 dotenv.config()
-var mysqlConnection
+export var mysqlConnection
 var port = 48756
 export const app = Express()
 export const corsOptions = {
