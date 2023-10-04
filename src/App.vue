@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import { useCounterStore } from "@/stores/counter"
+import { useCounterStore, useCounterMoney } from "@/stores/counter"
 import { reactive, ref, toRefs } from 'vue'
 
 let studentNumber = useCounterStore()
@@ -12,7 +12,7 @@ let money = useCounterMoney()
     <header id="header">
         <div id="stats">
             <p>{{ studentNumber.quantity }} Students 🧑‍🎓</p>
-            <p>Money 💰{{ money.quantity }}</p>
+            <p>Money 💰{{ money.money }}</p>
         </div>
         <nav id="navigation">
             <RouterLink to="/">Upgrade</RouterLink>
@@ -24,7 +24,7 @@ let money = useCounterMoney()
         <section id="clicker">
             <img src="/" alt="Image totally legal took from the discord channel Warning zone "/>
             <button @click="studentNumber.mainClick()">Spam me for student</button><!-- ajouter la fonction qui ajoute 1 etudiant au nombre d'etudiant -->
-            <button>Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
+            <button @click="money.mainClick(studentNumber.quantity); studentNumber.quantity = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
         </section>
         <RouterView />
     </div>
