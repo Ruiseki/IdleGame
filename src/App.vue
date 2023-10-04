@@ -3,7 +3,8 @@ import { RouterLink, RouterView } from 'vue-router'
 import { useCounterStore } from "@/stores/counter"
 import { reactive, ref, toRefs } from 'vue'
 
-let studentNumber : number = useCounterStore()
+let studentNumber = useCounterStore()
+let money = useCounterMoney()
 
 </script>
 
@@ -11,7 +12,7 @@ let studentNumber : number = useCounterStore()
     <header id="header">
         <div id="stats">
             <p>{{ studentNumber.quantity }} Students 🧑‍🎓</p>
-            <p>Money 💰</p>
+            <p>Money 💰{{ money.quantity }}</p>
         </div>
         <nav id="navigation">
             <RouterLink to="/">Upgrade</RouterLink>

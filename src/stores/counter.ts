@@ -20,3 +20,21 @@ export const useCounterStore = defineStore('counter', () => {
   return { quantity, mainCoef, clickCoef, mainClick }
 })
 
+export const useCounterMoney = defineStore('counterMoney', () => {
+  
+    const money = ref(0)
+    const mainCoef = ref(1)
+    const clickCoef = ref(1)
+  
+    setInterval(() => {
+      money.value += 1 * mainCoef.value
+    }, 5000)
+  
+    function mainClick()
+    {
+        money.value += 1 * clickCoef.value
+        console.log(money);
+    }
+  
+    return { money, mainCoef, clickCoef, mainClick }
+  }
