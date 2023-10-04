@@ -9,3 +9,8 @@ export interface Memory {
     quantity: number;
     emoji: string;
 }
+
+export interface student {
+    quantity: number;
+    emoji: string;
+}
