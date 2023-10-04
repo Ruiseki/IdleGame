@@ -12,7 +12,7 @@ let inventory = useCounterInventory()
 <template>
     <header id="header">
         <div id="stats">
-            <p>{{ studentNumber.quantity }} Students 🧑‍🎓</p>
+            <p>{{ studentNumber.student }} Students 🧑‍🎓</p>
             <p>Money 💰{{ money.money }}</p>
         </div>
         <nav id="navigation">
@@ -25,7 +25,7 @@ let inventory = useCounterInventory()
         <section id="clicker">
             <img src="/" alt="Image totally legal took from the discord channel Warning zone "/>
             <button @click="studentNumber.mainClick()">Spam me for student</button><!-- ajouter la fonction qui ajoute 1 etudiant au nombre d'etudiant -->
-            <button @click="money.mainClick(studentNumber.quantity); inventory.eventGetSouvenir(50, studentNumber.quantity) ; studentNumber.quantity = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
+            <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir(50, studentNumber.student) ; studentNumber.student = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
         </section>
         <RouterView />
     </div>

@@ -1,62 +1,52 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
+// TO DO : timestamp
+
+let backupStr = localStorage.getItem('lastsave')
+if (backupStr == null)
+{
+  backupStr = JSON.stringify({
+    student: '0',
+    money: '0',
+    mainCoef: '1',
+    clickCoef: '1',
+    moneyCoef: '1'
+  })
+  localStorage.setItem('lastsave', backupStr)
+}
+
+let backup = JSON.parse(backupStr)
 
 export const useCounterStore = defineStore('counter', () => {
 
-  let backupQty: any = localStorage.getItem('quantity');
-  if (backupQty == null) backupQty = '0';
-  backupQty = Number.parseInt(backupQty);
+  const student = ref(Number.parseInt(backup.student))
+  const mainCoef = ref(Number.parseInt(backup.mainCoef))
+  const clickCoef = ref(Number.parseInt(backup.clickCoef))
 
-  let backupCoef: any = localStorage.getItem('coefQty');
-  if (backupCoef == null) backupCoef = '1';
-  backupCoef = Number.parseInt(backupCoef);
-
-  let backupCoefClick: any = localStorage.getItem('coefClick');
-  if (backupCoefClick == null) backupCoefClick = '1';
-  backupCoefClick = Number.parseInt(backupCoefClick);
-
-  const quantity = ref(backupQty)
-  const mainCoef = ref(backupCoef)
-  const clickCoef = ref(backupCoefClick)
-
-  setInterval(() => {
-    quantity.value += 1 * mainCoef.value
-    localStorage.setItem('quantity', quantity.value.toString())
-    localStorage.setItem('coefQty', mainCoef.value.toString())
-    localStorage.setItem('coefClick', clickCoef.value.toString())
-    
-  }, 5000)
+  // add student in the time
+  setInterval(() => { student.value += 1 * mainCoef.value }, 5000)
 
   function mainClick()
   {
-      quantity.value += 1 * clickCoef.value
-      localStorage.setItem('quantity', quantity.value.toString())
-      localStorage.setItem('coefQty', mainCoef.value.toString())
-      localStorage.setItem('coefClick', clickCoef.value.toString())
+      student.value += 1 * clickCoef.value
+      backup.student = student.value
+      saveData(backup)
   }
 
-  return { quantity, mainCoef, clickCoef, mainClick }
+  return { student, mainCoef, clickCoef, mainClick }
 })
 
 export const useCounterMoney = defineStore('counterMoney', () => {
 
-    let backupMoney: any = localStorage.getItem('money');
-    if (backupMoney == null) backupMoney = '0';
-    backupMoney = Number.parseInt(backupMoney);
-
-    let backupMoneyCoef: any = localStorage.getItem('moneyCoef');
-    if (backupMoneyCoef == null) backupMoneyCoef = '1';
-    backupMoneyCoef = Number.parseInt(backupMoneyCoef);
-
-    const money = ref(backupMoney)
-    const moneyCoef = ref(backupMoneyCoef)
+    const money = ref(Number.parseInt(backup.money))
+    const moneyCoef = ref(Number.parseInt(backup.moneyCoef))
     
     function mainClick( students: number)
     {
         money.value += students * moneyCoef.value
-        localStorage.setItem('money', money.value.toString())
-        localStorage.setItem('moneyCoef', moneyCoef.value.toString())
+        backup.money = money.value
+        saveData(backup)
     }
   
     return { money, moneyCoef, mainClick }
@@ -69,17 +59,17 @@ export const useCounterInventory = defineStore('counterInventory', () => {
     const inventory = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
     
 
-    function addInInventory( souvenir_label: string, quantity:number)
+    function addInInventory( souvenir_label: string, student:number)
     {
         let souvenir_id = inventory_labels.indexOf(souvenir_label)
-        inventory[souvenir_id] += 1 * quantity
+        inventory[souvenir_id] += 1 * student
         console.log(inventory);
     }
 
-    function removeInInventory( souvenir_label: string, quantity:number)
+    function removeInInventory( souvenir_label: string, student:number)
     {
         let souvenir_id = inventory_labels.indexOf(souvenir_label)
-        inventory[souvenir_id] -= 1 * quantity
+        inventory[souvenir_id] -= 1 * student
         console.log(inventory);
     }
 
@@ -125,3 +115,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
     return { inventory_labels, inventory, addInInventory, removeInInventory, howManyInInventory, getLabels, getInventory, eventGetSouvenir}
   })
 
+function saveData(backup: object)
+{
+  localStorage.setItem('lastsave', JSON.stringify(backup))
+}
