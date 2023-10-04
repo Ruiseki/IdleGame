@@ -9,12 +9,20 @@ import { RouterLink, RouterView } from 'vue-router'
             <p>Money 💰</p>
         </div>
         <nav id="navigation">
-            <RouterLink to="/">Home</RouterLink>
+            <RouterLink to="/">Upgrade</RouterLink>
             <RouterLink to="/inventory">Inventory</RouterLink>
             <RouterLink to="/shop">Shop</RouterLink>
         </nav>
     </header>
-    <RouterView />
+    <div id="home">
+        <section id="clicker">
+            <img src="/" alt="Image totally legal took from the discord channel Warning zone "/>
+            <button>Spam me for student</button><!-- ajouter la fonction qui ajoute 1 etudiant au nombre d'etudiant -->
+            <button>Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
+        </section>
+        <RouterView />
+    </div>
+    
 </template>
 
 <style scoped>  
@@ -43,5 +51,26 @@ import { RouterLink, RouterView } from 'vue-router'
 
     template{
         height: 100vh;
+    }
+
+    #home {
+        display: flex;
+        flex-direction: row;
+        width: 100vw;
+        height: 90vh;
+    }
+
+    #clicker {
+        width: 60vw;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #clicker button {
+        width: 40%;
+        margin-left: 30%;
+        padding: 1rem;
+        margin-bottom: 30px;
     }
 </style>
