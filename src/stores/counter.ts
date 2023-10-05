@@ -212,11 +212,20 @@ export const useCounterInventory = defineStore('counterInventory', () => {
                   }
                 }
                 addInInventory(inventory.value[souvenir_id].name, 1) 
+
+                const documentAlertElement = document.getElementById('alert')
+                if (documentAlertElement != null){
+                  documentAlertElement.style.display = "block"
+                }
+                const documentPopupElement = document.getElementById('popup-souvenir')
+                if (documentPopupElement != null){
+                  documentPopupElement.innerHTML = "You won a new souvenir"
+                }
                 
-                document.getElementById('alert').style.display = "block"
-                document.getElementById('popup-souvenir').innerHTML = "You won a new souvenir"
                 setInterval(() => {
-                  document.getElementById('alert').style.display = "none"
+                  if (documentAlertElement != null){
+                    documentAlertElement.style.display = "none"
+                  }
                 }, 3000)
                 
             }
