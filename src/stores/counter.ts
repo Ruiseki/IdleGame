@@ -58,6 +58,7 @@ export const useCounterStore = defineStore('counter', () => {
     backup.mainCoef = mainCoef.value.toString()
     backup.clickCoef = clickCoef.value.toString()
     backup.money = '0'
+    useCounterMoney().money = 0
     backup.moneyCoef = '1'
     saveData(backup)
   }
