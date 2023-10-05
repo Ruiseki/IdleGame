@@ -25,7 +25,11 @@ export const useCounterStore = defineStore('counter', () => {
   const clickCoef = ref(Number.parseInt(backup.clickCoef))
 
   // add student in the time
-  setInterval(() => { student.value += 1 * mainCoef.value }, 5000)
+  setInterval(() => {
+    student.value += 1 * mainCoef.value;
+    backup.student = student.value;
+    saveData(backup);
+  }, 5000)
 
   function mainClick()
   {
