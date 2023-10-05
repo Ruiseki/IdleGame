@@ -12,8 +12,14 @@ let inventory = useCounterInventory()
 <template>
     <header id="header">
         <div id="stats">
-            <p>{{ studentNumber.student }} Students 🧑‍🎓</p>
-            <p>Money 💰{{ money.money }}</p>
+            <div>
+                <p>{{ `${Math.floor(studentNumber.student)}` }} Students 🧑‍🎓</p>
+                <p>{{ `${studentNumber.mainCoef / 5}` }} student(s)/sec</p>
+            </div>
+            <div>
+                <p>Money 💰{{ `${Math.floor(money.money)}` }}</p>
+                <p>{{ money.moneyCoef }} money(s)/student</p>
+            </div>
         </div>
         <nav id="navigation">
             <RouterLink to="/">Upgrade</RouterLink>
@@ -26,6 +32,7 @@ let inventory = useCounterInventory()
             <img src="/" alt="Image totally legal took from the discord channel Warning zone "/>
             <button @click="studentNumber.mainClick()">Spam me for student</button><!-- ajouter la fonction qui ajoute 1 etudiant au nombre d'etudiant -->
             <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir(50, studentNumber.student) ; studentNumber.student = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
+            <button @click="studentNumber.reset">Reset la partie</button>
         </section>
         <RouterView />
     </div>

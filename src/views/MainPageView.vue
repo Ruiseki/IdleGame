@@ -8,7 +8,7 @@
 <template>
     <section id="upgrades">
         <button class="upgrade" @click="upgradeList.levelUp(upgrade.name)" v-for="(upgrade, i) in upgradeList.upgradeList" :key="i">
-            <div>
+        <div>
                 <p>{{ upgrade.name }}</p>
             </div>
             <div>

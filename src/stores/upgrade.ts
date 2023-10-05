@@ -1,12 +1,12 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { backup, setBackup, useCounterMoney } from '@/stores/counter';
+import { backup, setBackup, useCounterMoney, useCounterStore } from '@/stores/counter';
 
 let upgradeList = ref([
     {
         'name': 'Linkedin Post',
         'level': '0',
-        'coefBonus': '0.1',
+        'coefBonus': '5',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
         'cost': '100',
@@ -17,7 +17,7 @@ let upgradeList = ref([
     {
         'name': 'Conference',
         'level': '0',
-        'coefBonus': '0.2',
+        'coefBonus': '50',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
         'cost': '500',
@@ -28,7 +28,7 @@ let upgradeList = ref([
     {
         'name': 'Sponsor',
         'level': '0',
-        'coefBonus': '0',
+        'coefBonus': '100',
         'moneyCoefBonus': '0.3',
         'coefDropRate': '0',
         'cost': '1000',
@@ -73,6 +73,8 @@ let upgradeList = ref([
 
 export const useUpgrade = defineStore('upgrade', () => {
     let money = useCounterMoney();
+    let counter = useCounterStore();
+
     function levelUp(upgradeName: string)
     {
         let index = upgradeList.value.findIndex(value => value.name == upgradeName)
@@ -84,9 +86,19 @@ export const useUpgrade = defineStore('upgrade', () => {
             {   
                 let newLevel = Number.parseInt( upgradeList.value[index].level ) + 1
                 upgradeList.value[index].level = newLevel.toString()
+                
+                console.log(`Main coef was ${counter.mainCoef}`);
 
-                money.money = (Number.parseInt(backup.money) - Number.parseInt(upgradeList.value[index].cost))
-                backupClone.money = (Number.parseInt(backup.money) - Number.parseInt(upgradeList.value[index].cost)).toString()
+                counter.mainCoef += Number.parseFloat(upgradeList.value[index].coefBonus)
+                money.moneyCoef += Number.parseFloat(upgradeList.value[index].moneyCoefBonus)
+                money.money = (Number.parseFloat(backup.money) - Number.parseInt(upgradeList.value[index].cost))
+
+                console.log(`Main coef is ${counter.mainCoef}`);
+                
+
+                backupClone.mainCoef = counter.mainCoef
+                backupClone.moneyCoef = money.moneyCoef
+                backupClone.money = money.money.toString()
                 setBackup(backupClone)
             }
             else return;
