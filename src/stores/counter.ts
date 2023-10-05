@@ -11,6 +11,64 @@ const backupObjectRef = {
     moneyCoef: '1'
   }
 
+const inventoryRef = [
+  {
+    "name": "Statue of Liberty",
+    "drop_rate": 30,
+    "quantity": 0,
+  },
+  {
+    "name": "Big Ben",
+    "drop_rate": 20,
+    "quantity": 0,
+  },
+  {
+    "name": "Eiffel Tower",
+    "drop_rate": 12,
+    "quantity": 0,
+  },
+  {
+    "name": "Winter Palace",
+    "drop_rate": 10,
+    "quantity": 0,
+  },
+  {
+    "name": "Taj Mahal",
+    "drop_rate": 8,
+    "quantity": 0,
+  },
+  {
+    "name": "Parthenon",
+    "drop_rate": 5,
+    "quantity": 0,
+  },
+  {
+    "name": "Colosseum",
+    "drop_rate": 5,
+    "quantity": 0,
+  },
+  {
+    "name": "Sydney Opera House",
+    "drop_rate": 4,
+    "quantity": 0,
+  },
+  {
+    "name": "Machu Picchu",
+    "drop_rate": 3,
+    "quantity": 0,
+  },
+  {
+    "name": "Pyramid of Giza",
+    "drop_rate": 2,
+    "quantity": 0,
+  },
+  {
+    "name": "Great Wall of China",
+    "drop_rate": 1,
+    "quantity": 0,
+  }
+]
+
 let backupStr = localStorage.getItem('mainStat')
 if (backupStr == null)
 {
@@ -18,7 +76,16 @@ if (backupStr == null)
   localStorage.setItem('mainStat', backupStr)
 }
 
+let inventoryBackupStr = localStorage.getItem('inventory')
+if (inventoryBackupStr == null)
+{
+  inventoryBackupStr = JSON.stringify(inventoryRef)
+  localStorage.setItem('inventory', inventoryBackupStr)
+}
+
 export let backup = JSON.parse(backupStr)
+export let inventory = JSON.parse(inventoryBackupStr)
+const inventoryVueRef = ref(inventory)
 
 export function setBackup(newBackup: object)
 {
@@ -85,90 +152,33 @@ export const useCounterMoney = defineStore('counterMoney', () => {
     }
   
     return { money, moneyCoef, mainClick, addmoney }
-  })
-
+})
 
 export const useCounterInventory = defineStore('counterInventory', () => {
 
-    const inventory = ref([
-      {
-        "name": "Statue of Liberty",
-        "drop_rate": 30,
-        "quantity": 0,
-      },
-      {
-        "name": "Big Ben",
-        "drop_rate": 20,
-        "quantity": 0,
-      },
-      {
-        "name": "Eiffel Tower",
-        "drop_rate": 12,
-        "quantity": 0,
-      },
-      {
-        "name": "Winter Palace",
-        "drop_rate": 10,
-        "quantity": 0,
-      },
-      {
-        "name": "Taj Mahal",
-        "drop_rate": 8,
-        "quantity": 0,
-      },
-      {
-        "name": "Parthenon",
-        "drop_rate": 5,
-        "quantity": 0,
-      },
-      {
-        "name": "Colosseum",
-        "drop_rate": 5,
-        "quantity": 0,
-      },
-      {
-        "name": "Sydney Opera House",
-        "drop_rate": 4,
-        "quantity": 0,
-      },
-      {
-        "name": "Machu Picchu",
-        "drop_rate": 3,
-        "quantity": 0,
-      },
-      {
-        "name": "Pyramid of Giza",
-        "drop_rate": 2,
-        "quantity": 0,
-      },
-      {
-        "name": "Great Wall of China",
-        "drop_rate": 1,
-        "quantity": 0,
-      }
-    ])
-
-      
-
     function addInInventory( souvenir_label: string, student:number)
     {
-      const element = inventory.value.find(value => value.name == souvenir_label)
+      const element = inventoryVueRef.value.find(value => value.name == souvenir_label)
       if (element != undefined){
        element.quantity += 1 * student
       }
+      console.log('lmao');
+      
+      saveInventory()
     }
 
     function removeInInventory( souvenir_label: string, student:number)
     {
-      const element = inventory.value.find(value => value.name == souvenir_label)
+      const element = inventoryVueRef.value.find(value => value.name == souvenir_label)
       if (element != undefined){
         element.quantity -= 1 * student
       }
+      saveInventory()
     }
 
     function howManyInInventory( souvenir_label: string)
     {
-      const element = inventory.value.find(value => value.name == souvenir_label)
+      const element = inventoryVueRef.value.find(value => value.name == souvenir_label)
       if (element != undefined){
         return element.quantity
       }
@@ -178,15 +188,15 @@ export const useCounterInventory = defineStore('counterInventory', () => {
     function getLabels()
     {
       const inventory_labels = []
-      for (let i = 0; i < inventory.value.length; i++) {
-        inventory_labels.push(inventory.value[i].name)
+      for (let i = 0; i < inventoryVueRef.value.length; i++) {
+        inventory_labels.push(inventoryVueRef.value[i].name)
       }
       return inventory_labels
     }
 
     function getInventory()
     {
-        return inventory
+        return inventoryVueRef
     }
 
     function eventGetSouvenir( probability:number, students:number, groups_width:number){
@@ -203,15 +213,15 @@ export const useCounterInventory = defineStore('counterInventory', () => {
                 const random_number = Math.floor(Math.random()*100)
                 let souvenir_id = 0
                 let sum = 0
-                for (let i = 0; i < inventory.value.length; i++) {
-                  sum += inventory.value[i].drop_rate
+                for (let i = 0; i < inventoryVueRef.value.length; i++) {
+                  sum += inventoryVueRef.value[i].drop_rate
                   if (random_number < sum)
                   {
                     souvenir_id = i
                     break
                   }
                 }
-                addInInventory(inventory.value[souvenir_id].name, 1) 
+                addInInventory(inventoryVueRef.value[souvenir_id].name, 1) 
 
                 const documentAlertElement = document.getElementById('alert')
                 if (documentAlertElement != null){
@@ -236,8 +246,8 @@ export const useCounterInventory = defineStore('counterInventory', () => {
         }
     }
 
-    return {inventory, addInInventory, removeInInventory, howManyInInventory, getLabels, getInventory, eventGetSouvenir}
-  })
+    return {inventoryVueRef, addInInventory, removeInInventory, howManyInInventory, getLabels, getInventory, eventGetSouvenir}
+})
 
 export const useCounterSuccess = defineStore('counterSuccess', () => {
   const success_list = ref([
@@ -413,8 +423,13 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
   return {success_list, getSuccessList, checkSuccesses}
 })
 
-
 function saveData(backup: object)
 {
   localStorage.setItem('mainStat', JSON.stringify(backup))
+}
+
+function saveInventory()
+{
+  console.log('saving inventory');
+  localStorage.setItem('inventory', JSON.stringify(inventoryVueRef.value))
 }
