@@ -8,8 +8,7 @@ let upgradeList = ref([
         'coefBonus': '0.1',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
-        'baseCost': '100',
-        'coefCost': '2',
+        'cost': '100',
         'levelCap': '25',
         'itemName': 'Statue of Liberty',
         'quantity': '1'
@@ -20,8 +19,7 @@ let upgradeList = ref([
         'coefBonus': '0.2',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
-        'baseCost': '500',
-        'coefCost': '2',
+        'cost': '500',
         'levelCap': '25',
         'itemName': 'Big Ben',
         'quantity': '2'
@@ -32,8 +30,7 @@ let upgradeList = ref([
         'coefBonus': '0',
         'moneyCoefBonus': '0.3',
         'coefDropRate': '0',
-        'baseCost': '1000',
-        'coefCost': '2',
+        'cost': '1000',
         'levelCap': '20',
         'itemName': 'Eiffel Tower',
         'quantity': '1'
@@ -44,8 +41,7 @@ let upgradeList = ref([
         'coefBonus': '0.5',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
-        'baseCost': '5000',
-        'coefCost': '2',
+        'cost': '5000',
         'levelCap': '20',
         'itemName': 'Winter Palace',
         'quantity': '5'
@@ -56,8 +52,7 @@ let upgradeList = ref([
         'coefBonus': '0.5',
         'moneyCoefBonus': '0.5',
         'coefDropRate': '0',
-        'baseCost': '10000',
-        'coefCost': '2',
+        'cost': '10000',
         'levelCap': '15',
         'itemName': 'Colosseum',
         'quantity': '5'
@@ -68,8 +63,7 @@ let upgradeList = ref([
         'coefBonus': '1.5',
         'moneyCoefBonus': '-0.3',
         'coefDropRate': '0',
-        'baseCost': '100',
-        'coefCost': '2',
+        'cost': '50000',
         'levelCap': '10',
         'itemName': 'Great Wall of China',
         'quantity': '7'
@@ -85,8 +79,8 @@ export const useUpgrade = defineStore('upgrade', () => {
         {
             let newLevel = Number.parseInt( upgradeList.value[index].level ) + 1
             upgradeList.value[index].level = newLevel.toString()
-            console.log(upgradeList.value[index]);
-            
+            // retirer l'argent ici
+            upgradeList.value[index].cost = (Number.parseInt(upgradeList.value[index].cost) * 2).toString();
         }
     }
 

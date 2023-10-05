@@ -2,6 +2,7 @@
     import { useUpgrade } from '@/stores/upgrade'
 
     const upgradeList = useUpgrade();
+
 </script>
 
 <template>
@@ -14,7 +15,7 @@
                 <p>{{ upgrade.level }}</p>
             </div>
             <div>
-                <p>Price 💰</p>
+                <p>{{ `${Number.parseInt(upgrade.cost)}` }} 💰</p>
             </div>
         </button>
     </section>
