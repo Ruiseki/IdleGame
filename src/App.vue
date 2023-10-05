@@ -30,8 +30,9 @@ let inventory = useCounterInventory()
     <div id="home">
         <section id="clicker">
             <img src="/" alt="Image totally legal took from the discord channel Warning zone "/>
-            <button @click="studentNumber.mainClick()">Spam me for student</button><!-- ajouter la fonction qui ajoute 1 etudiant au nombre d'etudiant -->
-            <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir(50, studentNumber.student) ; studentNumber.student = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
+            <button @click="studentNumber.mainClick()">Spam me for student</button>
+            <!-- @eventGetSouvenir takes the probability in %, the number of students and the groups width -->
+            <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir(50, studentNumber.student, 60) ; studentNumber.student = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
             <button @click="studentNumber.reset">Reset la partie</button>
         </section>
         <RouterView />

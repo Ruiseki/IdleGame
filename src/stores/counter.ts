@@ -183,10 +183,10 @@ export const useCounterInventory = defineStore('counterInventory', () => {
         return inventory
     }
 
-    function eventGetSouvenir( probability:number, students:number){
+    function eventGetSouvenir( probability:number, students:number, groups_width:number){
         if (students >= 30) {
           // we will repeat the action for each group of 50 students
-          let groups = Math.floor(students/5)
+          let groups = Math.floor(students/groups_width)
           for (let i = 0; i < groups; i++) {
 
             // probability in %
