@@ -162,8 +162,6 @@ export const useCounterInventory = defineStore('counterInventory', () => {
       if (element != undefined){
        element.quantity += 1 * student
       }
-      console.log('lmao');
-      
       saveInventory()
     }
 
@@ -430,6 +428,5 @@ function saveData(backup: object)
 
 function saveInventory()
 {
-  console.log('saving inventory');
   localStorage.setItem('inventory', JSON.stringify(inventoryVueRef.value))
 }
