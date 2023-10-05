@@ -59,33 +59,98 @@ export const useCounterMoney = defineStore('counterMoney', () => {
 
 export const useCounterInventory = defineStore('counterInventory', () => {
 
-    const inventory_labels = [ "Eiffel Tower", "Statue of Liberty", "Big Ben", "Great Wall of China", "Taj Mahal", "Parthenon", "Colosseum", "Sydney Opera House", "Machu Picchu", "Pyramid of Giza" ]
-    const inventory = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
-    
+    const inventory = [
+      {
+        "name": "Eiffel Tower",
+        "drop_rate": 30,
+        "quantity": 0,
+      },
+      {
+        "name": "Statue of Liberty",
+        "drop_rate": 20,
+        "quantity": 0,
+      },
+      {
+        "name": "Big Ben",
+        "drop_rate": 10,
+        "quantity": 0,
+      },
+      {
+        "name": "Great Wall of China",
+        "drop_rate": 10,
+        "quantity": 0,
+      },
+      {
+        "name": "Taj Mahal",
+        "drop_rate": 10,
+        "quantity": 0,
+      },
+      {
+        "name": "Parthenon",
+        "drop_rate": 5,
+        "quantity": 0,
+      },
+      {
+        "name": "Colosseum",
+        "drop_rate": 5,
+        "quantity": 0,
+      },
+      {
+        "name": "Sydney Opera House",
+        "drop_rate": 4,
+        "quantity": 0,
+      },
+      {
+        "name": "Machu Picchu",
+        "drop_rate": 3,
+        "quantity": 0,
+      },
+      {
+        "name": "Pyramid of Giza",
+        "drop_rate": 2,
+        "quantity": 0,
+      },
+      {
+        "name": "Winter Palace",
+        "drop_rate": 1,
+        "quantity": 0,
+      }
+    ]
+
+      
 
     function addInInventory( souvenir_label: string, student:number)
     {
-        let souvenir_id = inventory_labels.indexOf(souvenir_label)
-        inventory[souvenir_id] += 1 * student
-        console.log(inventory);
+      let element = inventory.find(value => value.name == souvenir_label)
+      if (element != undefined){
+       element.quantity += 1 * student
+      }
     }
 
     function removeInInventory( souvenir_label: string, student:number)
     {
-        let souvenir_id = inventory_labels.indexOf(souvenir_label)
-        inventory[souvenir_id] -= 1 * student
-        console.log(inventory);
+      let element = inventory.find(value => value.name == souvenir_label)
+      if (element != undefined){
+        element.quantity -= 1 * student
+      }
     }
 
     function howManyInInventory( souvenir_label: string)
     {
-        let souvenir_id = inventory_labels.indexOf(souvenir_label)
-        return inventory[souvenir_id]
+      let element = inventory.find(value => value.name == souvenir_label)
+      if (element != undefined){
+        return element.quantity
+      }
+      return 0
     }
 
     function getLabels()
     {
-        return inventory_labels
+      let inventory_labels = []
+      for (let i = 0; i < inventory.length; i++) {
+        inventory_labels.push(inventory[i].name)
+      }
+      return inventory_labels
     }
 
     function getInventory()
@@ -100,12 +165,20 @@ export const useCounterInventory = defineStore('counterInventory', () => {
           let rand = Math.random()*100
           if (rand < probability)
           {
-              let numberOfElements = inventory_labels.length
-              let souvenir_id = Math.floor(Math.random()*numberOfElements)
-              console.log(souvenir_id);
-              
-              inventory[souvenir_id] += 1
-              console.log("you won a souvenir", inventory_labels[souvenir_id]);
+              // get souvenir id random  respectively to his drop chance
+              let random_number = Math.floor(Math.random()*100)
+              let souvenir_id = 0
+              let sum = 0
+              for (let i = 0; i < inventory.length; i++) {
+                sum += inventory[i].drop_rate
+                if (random_number < sum)
+                {
+                  souvenir_id = i
+                  break
+                }
+              }
+              addInInventory(inventory[souvenir_id].name, 1)
+              console.log("you won a souvenir", inventory[souvenir_id]);
               console.log(inventory);
           }
         }
@@ -116,7 +189,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
 
 
-    return { inventory_labels, inventory, addInInventory, removeInInventory, howManyInInventory, getLabels, getInventory, eventGetSouvenir}
+    return {inventory, addInInventory, removeInInventory, howManyInInventory, getLabels, getInventory, eventGetSouvenir}
   })
 
 function saveData(backup: object)
