@@ -8,8 +8,13 @@
 <template>
     <section id="upgrades">
         <button class="upgrade" @click="upgradeList.levelUp(upgrade.name)" v-for="(upgrade, i) in upgradeList.upgradeList" :key="i">
-        <div>
+            <div>
                 <p>{{ upgrade.name }}</p>
+            </div>
+            <div>
+                <p>Student coef: {{ `${Number.parseInt(upgrade.coefBonus)/5}` }}</p>
+                <p>Money coef: {{ upgrade.moneyCoefBonus }}</p>
+                <p>Drop coef: {{ upgrade.coefDropRate }}</p>
             </div>
             <div>
                 <p>{{ upgrade.level }}</p>
@@ -45,7 +50,7 @@
     }
 
     .upgrade div {
-        width: 33%;
-        text-align: right;
+        width: 25%;
+        text-align: center;
     }
 </style>
