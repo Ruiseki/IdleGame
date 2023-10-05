@@ -206,7 +206,13 @@ export const useCounterInventory = defineStore('counterInventory', () => {
                   }
                 }
                 addInInventory(inventory.value[souvenir_id].name, 1) 
-                alert('You won a souvenir : ' + inventory.value[souvenir_id].name)
+                
+                document.getElementById('alert').style.display = "block"
+                document.getElementById('popup-souvenir').innerHTML = "You won a new souvenir"
+                setInterval(() => {
+                  document.getElementById('alert').style.display = "none"
+                }, 3000)
+                
             }
           }
         }
