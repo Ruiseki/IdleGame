@@ -187,8 +187,6 @@ export const useCounterInventory = defineStore('counterInventory', () => {
         }
     }
 
-
-
     return {inventory, addInInventory, removeInInventory, howManyInInventory, getLabels, getInventory, eventGetSouvenir}
   })
 
