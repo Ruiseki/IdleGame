@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 // TO DO : timestamp
 
-let backupObjectRef = {
+const backupObjectRef = {
     student: '0',
     money: '0',
     mainCoef: '5',
@@ -152,7 +152,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function addInInventory( souvenir_label: string, student:number)
     {
-      let element = inventory.value.find(value => value.name == souvenir_label)
+      const element = inventory.value.find(value => value.name == souvenir_label)
       if (element != undefined){
        element.quantity += 1 * student
       }
@@ -160,7 +160,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function removeInInventory( souvenir_label: string, student:number)
     {
-      let element = inventory.value.find(value => value.name == souvenir_label)
+      const element = inventory.value.find(value => value.name == souvenir_label)
       if (element != undefined){
         element.quantity -= 1 * student
       }
@@ -168,7 +168,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function howManyInInventory( souvenir_label: string)
     {
-      let element = inventory.value.find(value => value.name == souvenir_label)
+      const element = inventory.value.find(value => value.name == souvenir_label)
       if (element != undefined){
         return element.quantity
       }
@@ -177,7 +177,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function getLabels()
     {
-      let inventory_labels = []
+      const inventory_labels = []
       for (let i = 0; i < inventory.value.length; i++) {
         inventory_labels.push(inventory.value[i].name)
       }
@@ -192,15 +192,15 @@ export const useCounterInventory = defineStore('counterInventory', () => {
     function eventGetSouvenir( probability:number, students:number, groups_width:number){
         if (students >= 30) {
           // we will repeat the action for each group of 50 students
-          let groups = Math.floor(students/groups_width)
+          const groups = Math.floor(students/groups_width)
           for (let i = 0; i < groups; i++) {
 
             // probability in %
-            let rand = Math.random()*100 //  value will be between 0 and 100
+            const rand = Math.random()*100 //  value will be between 0 and 100
             if (rand >= probability)
             {
                 // get souvenir id random  respectively to his drop chance
-                let random_number = Math.floor(Math.random()*100)
+                const random_number = Math.floor(Math.random()*100)
                 let souvenir_id = 0
                 let sum = 0
                 for (let i = 0; i < inventory.value.length; i++) {
