@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 // TO DO : timestamp
 
-let backupStr = localStorage.getItem('lastsave')
+let backupStr = localStorage.getItem('mainStat')
 if (backupStr == null)
 {
   backupStr = JSON.stringify({
@@ -13,10 +13,16 @@ if (backupStr == null)
     clickCoef: '1',
     moneyCoef: '1'
   })
-  localStorage.setItem('lastsave', backupStr)
+  localStorage.setItem('mainStat', backupStr)
 }
 
-let backup = JSON.parse(backupStr)
+export let backup = JSON.parse(backupStr)
+
+export function setBackup(newBackup: object)
+{
+  backup = newBackup
+  saveData(backup)
+}
 
 export const useCounterStore = defineStore('counter', () => {
 
@@ -45,11 +51,13 @@ export const useCounterMoney = defineStore('counterMoney', () => {
 
     const money = ref(Number.parseInt(backup.money))
     const moneyCoef = ref(Number.parseInt(backup.moneyCoef))
+    const student = ref(Number.parseInt(backup.student))
     
     function mainClick( students: number)
     {
         money.value += students * moneyCoef.value
         backup.money = money.value
+        backup.student = 0
         saveData(backup)
     }
   
@@ -192,5 +200,5 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
 function saveData(backup: object)
 {
-  localStorage.setItem('lastsave', JSON.stringify(backup))
+  localStorage.setItem('mainStat', JSON.stringify(backup))
 }

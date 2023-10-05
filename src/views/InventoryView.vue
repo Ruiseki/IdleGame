@@ -7,7 +7,6 @@ const counterInventory = useCounterInventory()
 let table_labels = counterInventory.getLabels()
 let table_quantities = counterInventory.getInventory()
 
-
 var estimated_price: any[] = []
 for (let i = 0; i < table_labels.length; i++) {
     estimated_price.push(Math.floor(Math.random() * 100))
@@ -32,7 +31,7 @@ for (let i = 0; i < table_labels.length; i++) {
                 <p>{{ table_labels[k] }}</p>
             </div>
             <div>
-                <p>{{ table_quantities[k]}}</p>
+                <p>{{ table_quantities[k].quantity}}</p>
             </div>
             <div>
                 <p>{{ estimated_price[k] }}</p>

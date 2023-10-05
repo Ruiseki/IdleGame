@@ -1,5 +1,6 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { backup, setBackup, useCounterMoney } from '@/stores/counter';
 
 let upgradeList = ref([
     {
@@ -71,15 +72,24 @@ let upgradeList = ref([
 ])
 
 export const useUpgrade = defineStore('upgrade', () => {
+    let money = useCounterMoney();
     function levelUp(upgradeName: string)
     {
         let index = upgradeList.value.findIndex(value => value.name == upgradeName)
         
         if(index != -1 && upgradeList.value[index] != undefined)
         {
-            let newLevel = Number.parseInt( upgradeList.value[index].level ) + 1
-            upgradeList.value[index].level = newLevel.toString()
-            // retirer l'argent ici
+            let backupClone = {...backup}
+            if (Number.parseInt(backup.money) - Number.parseInt(upgradeList.value[index].cost) >= 0)
+            {   
+                let newLevel = Number.parseInt( upgradeList.value[index].level ) + 1
+                upgradeList.value[index].level = newLevel.toString()
+
+                money.money = (Number.parseInt(backup.money) - Number.parseInt(upgradeList.value[index].cost))
+                backupClone.money = (Number.parseInt(backup.money) - Number.parseInt(upgradeList.value[index].cost)).toString()
+                setBackup(backupClone)
+            }
+            else return;
             upgradeList.value[index].cost = (Number.parseInt(upgradeList.value[index].cost) * 2).toString();
         }
     }
