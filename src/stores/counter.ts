@@ -33,7 +33,7 @@ export const useCounterStore = defineStore('counter', () => {
   const clickCoef = ref(Number.parseInt(backup.clickCoef))
 
   // add student in the time
-  setInterval(() => {
+  setInterval(() => { 
     // 5000 -> calibrated value
     student.value += mainCoef.value / 50;
     backup.student = student.value;
@@ -77,8 +77,14 @@ export const useCounterMoney = defineStore('counterMoney', () => {
         backup.student = 0
         saveData(backup)
     }
+
+    function addmoney( quantity:number){
+      money.value += quantity
+      backup.money = money.value
+      saveData(backup)
+    }
   
-    return { money, moneyCoef, mainClick }
+    return { money, moneyCoef, mainClick, addmoney }
   })
 
 
@@ -102,12 +108,12 @@ export const useCounterInventory = defineStore('counterInventory', () => {
       },
       {
         "name": "Winter Palace",
-        "drop_rate": 9,
+        "drop_rate": 10,
         "quantity": 0,
       },
       {
         "name": "Taj Mahal",
-        "drop_rate": 9,
+        "drop_rate": 8,
         "quantity": 0,
       },
       {
@@ -219,7 +225,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
   })
 
 export const useCounterSuccess = defineStore('counterSuccess', () => {
-  var success_list = ref([
+  const success_list = ref([
     {
       name: "Good move",
       description: "play to the game",
@@ -227,6 +233,14 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 0,
       reward: 0,
       status: true
+    },
+    {
+      name: "I'm Clint rich wood",
+      description: "have 1 000 000 000$",
+      type: "money",
+      quantity: 1000000000,
+      reward: 0,
+      status: false
     },
     {
       name: "First step",
@@ -237,78 +251,151 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       status: false
     },
     {
-      "name": "Freedom",
-      "description": "Have 100 Statue of Liberty",
-      "type": "Statue of Liberty",
-      "quantity": 100,
-      "reward": 1000,  
-      "status": false
+      name: "Freedom",
+      description: "Have 100 Statue of Liberty",
+      type: "Statue of Liberty",
+      quantity: 100,
+      reward: 1000,  
+      status: false
     },
     {
-      "name": "Ding -Dong",
-      "description": "Have 100 Big Ben",
-      "type": "Big Ben",
-      "quantity": 100,
-      "reward": false
+      name: "Ding - Dong",
+      description: "Have 100 Big Ben",
+      type: "Big Ben",
+      quantity: 100,
+      reward: false
     },
     {
-      "name": "French Baguette",
-      "description": "Have 100 Eiffel Tower",
-      "type": "Eiffel Tower",
-      "quantity": 100,
-      "reward": 1000,
-      "status": false
+      name: "French Baguette",
+      description: "Have 100 Eiffel Tower",
+      type: "Eiffel Tower",
+      quantity: 100,
+      reward: 1000,
+      status: false
     },
     {
-      "name": "Winter is coming",
-      "description": "Have 50 Winter Palace",
-      "type": "Winter Palace",
-      "quantity": 50,
-      "reward": 1000,
-      "status": false
+      name: "winter is coming",
+      description: "Have 50 Winter Palace",
+      type: "Winter Palace",
+      quantity: 50,
+      reward: 1000,
+      status: false
     },
     {
-      "name": " Wall-E",
-      "description": "Have 1 Great Wall of China",
-      "type": "Great Wall of China",
-      "quantity": 1,
-      "reward": 100,
-      "status": false
+      name: "Wall-E",
+      description: "Have 1 Great Wall of China",
+      type: "Great Wall of China",
+      quantity: 1,
+      reward: 100,
+      status: false
     },
     {
-      "name": "God of War",
-      "description": "Have 1 Colosseum",
-      "type": "Colosseum",
-      "quantity": 1,
-      "reward": 100,
-      "status": false
+      name: "God of War",
+      description: "Have 1 Colosseum",
+      type: "Colosseum",
+      quantity: 1,
+      reward: 100,
+      status: false
     },
     {
-      "name" : "Pyramid Of cheddar",
-      "description": "Have 10 Pyramid of Giza",
-      "type": "Pyramid of Giza",
-      "quantity": 10,
-      "reward": 1000,
-      "status": false
+      name: "Pyramid Of cheddar",
+      description: "Have 10 Pyramid of Giza",
+      type: "Pyramid of Giza",
+      quantity: 10,
+      reward: 1000,
+      status: false
     },
     {
-      "name": "The 7 wonders of the world",
-      "description": "Have 1 of each souvenirs",
-      "type": "all",
-      "quantity": 1,
-      "reward": 100000,
-      "status": false
+      name: "The 7 wonders of the world",
+      description: "Have 1 of each souvenirs",
+      type: "all",
+      quantity: 1,
+      reward: 100000,
+      status: false
+    },
+    {
+      name: "influencer",
+      description: "Have 1000 students",
+      type: "students",
+      quantity: 1000,
+      reward: 1000,
+      status: false
+    },
+    {
+      name: "youtuber",
+      description: "Have 10000 students",
+      type: "students",
+      quantity: 10000,
+      reward: 2000,
+      status: false
+    },
+    {
+      name: "twitcher",
+      description: "Have 100000 students",
+      type: "students",
+      quantity: 100000,
+      reward: 5000,
+    },
+    {
+      name: "EL PROFESSOR",
+      description: "Have 1 000 000 000 students",
+      type: "students",
+      quantity: 1000000000,
+      reward: 100000,
+      status: false
     }
-
-
   ])
+
+  function checkSuccesses(moneyQuantity:number, inventory:any, students:number)
+  {
+    // for each success
+    for (let i = 0; i < success_list.value.length; i++) {
+      // if the success is not already won
+      const success = success_list.value[i]
+      if (success.status == false)
+      {
+        if (success.type == "money")
+        {
+          if (moneyQuantity >= success.quantity)
+          {
+            success.status = true
+            alert("You won a success : " + success.name)
+          }
+        }
+        else if (success.type == "all")
+        {
+          let successAll = true
+          for (let j = 0; j < inventory.length; j++) {
+            if (inventory.quantity[j] == 0)
+            {
+              successAll = false
+              break
+            }
+          }
+          if (successAll)
+          {
+            success.status = true
+            alert("You won a success : " + success.name)
+          }
+        }
+        else if (success.type == "students"){
+          if (students >= success.quantity)
+          {
+            success.status = true
+            alert("You won a success : " + success.name)
+          }
+        }
+      }
+    }
+  }
+  setInterval(() => { checkSuccesses(backup.money, backup.inventory, backup.student) }, 1000)
 
   function getSuccessList()
   {
     return success_list
   }
 
-  return {success_list, getSuccessList}
+  return {success_list, getSuccessList, checkSuccesses}
 })
 
 
