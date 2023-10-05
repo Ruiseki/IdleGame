@@ -25,6 +25,7 @@ let inventory = useCounterInventory()
             <RouterLink to="/">Upgrade</RouterLink>
             <RouterLink to="/inventory">Inventory</RouterLink>
             <RouterLink to="/shop">Shop</RouterLink>
+            <RouterLink to="/success">Success</RouterLink>
         </nav>
     </header>
     <div id="home">
