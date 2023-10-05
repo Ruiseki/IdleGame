@@ -67,7 +67,7 @@ export const useCounterMoney = defineStore('counterMoney', () => {
 
 export const useCounterInventory = defineStore('counterInventory', () => {
 
-    const inventory = [
+    const inventory = ref([
       {
         "name": "Eiffel Tower",
         "drop_rate": 30,
@@ -123,13 +123,13 @@ export const useCounterInventory = defineStore('counterInventory', () => {
         "drop_rate": 1,
         "quantity": 0,
       }
-    ]
+    ])
 
       
 
     function addInInventory( souvenir_label: string, student:number)
     {
-      let element = inventory.find(value => value.name == souvenir_label)
+      let element = inventory.value.find(value => value.name == souvenir_label)
       if (element != undefined){
        element.quantity += 1 * student
       }
@@ -137,7 +137,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function removeInInventory( souvenir_label: string, student:number)
     {
-      let element = inventory.find(value => value.name == souvenir_label)
+      let element = inventory.value.find(value => value.name == souvenir_label)
       if (element != undefined){
         element.quantity -= 1 * student
       }
@@ -145,7 +145,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function howManyInInventory( souvenir_label: string)
     {
-      let element = inventory.find(value => value.name == souvenir_label)
+      let element = inventory.value.find(value => value.name == souvenir_label)
       if (element != undefined){
         return element.quantity
       }
@@ -155,8 +155,8 @@ export const useCounterInventory = defineStore('counterInventory', () => {
     function getLabels()
     {
       let inventory_labels = []
-      for (let i = 0; i < inventory.length; i++) {
-        inventory_labels.push(inventory[i].name)
+      for (let i = 0; i < inventory.value.length; i++) {
+        inventory_labels.push(inventory.value[i].name)
       }
       return inventory_labels
     }
@@ -177,16 +177,16 @@ export const useCounterInventory = defineStore('counterInventory', () => {
               let random_number = Math.floor(Math.random()*100)
               let souvenir_id = 0
               let sum = 0
-              for (let i = 0; i < inventory.length; i++) {
-                sum += inventory[i].drop_rate
+              for (let i = 0; i < inventory.value.length; i++) {
+                sum += inventory.value[i].drop_rate
                 if (random_number < sum)
                 {
                   souvenir_id = i
                   break
                 }
               }
-              addInInventory(inventory[souvenir_id].name, 1)
-              console.log("you won a souvenir", inventory[souvenir_id]);
+              addInInventory(inventory.value[souvenir_id].name, 1)
+              console.log("you won a souvenir", inventory.value[souvenir_id]);
               console.log(inventory);
           }
         }
