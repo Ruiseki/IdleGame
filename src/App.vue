@@ -78,7 +78,7 @@ async function createAccount() {
       <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir( 99, studentNumber.student, 60 + (studentNumber.mainCoef * 2) / 5);studentNumber.student = 0">
         Take students on a trip 🧑‍🎓</button
       ><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
-      <button @click="studentNumber.reset">Reset la partie</button>
+      <button @click="studentNumber.reset">Reset game</button>
     </section>
     <RouterView />
   </div>
