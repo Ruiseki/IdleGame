@@ -48,8 +48,9 @@ let table_successes = success.getSuccessList()
 
 <style scoped>
     #items {
-        width: 40vw;
+        width: 38vw;
         padding: 2rem;
+        overflow: scroll;
     }
 
     .item {

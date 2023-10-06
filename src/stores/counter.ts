@@ -15,25 +15,25 @@ const backupObjectRef = {
 const inventoryRef = [
   {
     "name": "Statue of Liberty",
-    "drop_rate": 30,
+    "drop_rate": 40,
     "quantity": 0,
     "picture": "/src/assets/StatueOfLiberty.webp",
   },
   {
     "name": "Big Ben",
-    "drop_rate": 20,
+    "drop_rate": 17,
     "quantity": 0,
     "picture": "/src/assets/BigBen.webp",
   },
   {
     "name": "Eiffel Tower",
-    "drop_rate": 12,
+    "drop_rate": 11,
     "quantity": 0,
     "picture": "/src/assets/eiffel_tower.webp",
   },
   {
     "name": "Winter Palace",
-    "drop_rate": 10,
+    "drop_rate": 9,
     "quantity": 0,
     "picture": "/src/assets/WinterPalace.webp",
   },
@@ -41,11 +41,13 @@ const inventoryRef = [
     "name": "Taj Mahal",
     "drop_rate": 8,
     "quantity": 0,
+    "picture": "/src/assets/TajMahel.webp",
   },
   {
     "name": "Parthenon",
     "drop_rate": 5,
     "quantity": 0,
+    "picture": "/src/assets/Parthenon.webp",
   },
   {
     "name": "Colosseum",
@@ -57,16 +59,19 @@ const inventoryRef = [
     "name": "Sydney Opera House",
     "drop_rate": 4,
     "quantity": 0,
+    "picture": "/src/assets/SydneyOperaHouse.webp",
   },
   {
     "name": "Machu Picchu",
     "drop_rate": 3,
     "quantity": 0,
+    "picture": "/src/assets/MachuPicchu.webp",
   },
   {
     "name": "Pyramid of Giza",
     "drop_rate": 2,
     "quantity": 0,
+    "picture": "/src/assets/PyramidOfGiza.webp",
   },
   {
     "name": "Great Wall of China",
@@ -305,11 +310,38 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       date: null
     },
     {
+      name: "Lionel RICH-ie",
+      description: "have 1 000 000$",
+      type: "money",
+      quantity: 1000000,
+      reward: 100,
+      status: false,
+      date: null
+    },
+    {
       name: "I'm Clint rich wood",
       description: "have 1 000 000 000$",
       type: "money",
       quantity: 1000000000,
       reward: 10000,
+      status: false,
+      date: null
+    },
+    {
+      "name": "Jeff Pessos",
+      "description": "Have 100 000 000 000$",
+      "type": "money",
+      "quantity": 100000000000,
+      "reward": 100000,
+      "status": false,
+      "date": null
+    },
+    {
+      name: "Earth Owner",
+      description: "Have 1 000 000 000 000$",
+      type: "money",
+      quantity: 1000000000000,
+      reward: 1000000,
       status: false,
       date: null
     },
@@ -320,6 +352,16 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       object: "Statue of Liberty",
       quantity: 1,
       reward: 100,
+      status: false,
+      date: null
+    },
+    {
+      name: "Democracy",
+      description: "Have 1000 Statue of Liberty",
+      type: "inventory",
+      object: "Statue of Liberty",
+      quantity: 1000,
+      reward: 1000,
       status: false,
       date: null
     },
@@ -363,7 +405,7 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       date: null
     },
     {
-      name: "Wall-E",
+      name: "Wall-HE !!",
       description: "Have 1 Great Wall of China",
       type: "inventory",
       object: "Great Wall of China",
@@ -377,6 +419,16 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       description: "Have 1 Colosseum",
       type: "inventory",
       object: "Colosseum",
+      quantity: 1,
+      reward: 100,
+      status: false,
+      date: null
+    },
+    {
+      name: "Opera Singer",
+      description: "Have 1 Sydney Opera House",
+      type: "inventory",
+      object: "Sydney Opera House",
       quantity: 1,
       reward: 100,
       status: false,
@@ -398,6 +450,33 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       type: "all",
       quantity: 1,
       reward: 100000,
+      status: false,
+      date: null
+    },
+    {
+      name: "Wonder-full World",
+      description: "Have 10 of each souvenirs",
+      type: "all",
+      quantity: 10,
+      reward: 1000000,
+      status: false,
+      date: null
+    },
+    {
+      name: "tutor",
+      description: "Have 10 students",
+      type: "students",
+      quantity: 10,
+      reward: 10,
+      status: false,
+      date: null
+    },
+    {
+      name: "teacher",
+      description: "Have 100 students",
+      type: "students",
+      quantity: 100,
+      reward: 100,
       status: false,
       date: null
     },
@@ -483,7 +562,7 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
           let successAll = true
           
           inventory.forEach((element:any) => {
-            if (element.quantity == 0)
+            if (element.quantity < success.quantity)
             {
               successAll = false
             }
