@@ -30,7 +30,7 @@ for (let i = 0; i < table_labels.length; i++) {
         <div class="item" v-for="(items, k) in table_labels" :key="k">
             <div>
                 <!--i want a picture with the url value equals to [...table_inventory][k].picture wich is an url of the picture -->
-                <img style="width:150px; border-radius:60px" :src="table_inventory[k].picture" :alt="[...table_inventory][k].picture"/>
+                <img style="width:140px; border-radius:60px" :src="table_inventory[k].picture" :alt="[...table_inventory][k].picture"/>
             </div> 
             <div>
                 <p>{{ table_labels[k] }}</p>
@@ -47,8 +47,9 @@ for (let i = 0; i < table_labels.length; i++) {
 
 <style scoped>
     #items {
-        width: 40vw;
+        width: 38vw;
         padding: 2rem;
+        overflow: scroll;
     }
 
     .item {
