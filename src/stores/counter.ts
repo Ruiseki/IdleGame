@@ -41,11 +41,13 @@ const inventoryRef = [
     "name": "Taj Mahal",
     "drop_rate": 8,
     "quantity": 0,
+    "picture": "/src/assets/TajMahel.webp",
   },
   {
     "name": "Parthenon",
     "drop_rate": 5,
     "quantity": 0,
+    "picture": "/src/assets/Parthenon.webp",
   },
   {
     "name": "Colosseum",
@@ -57,16 +59,19 @@ const inventoryRef = [
     "name": "Sydney Opera House",
     "drop_rate": 4,
     "quantity": 0,
+    "picture": "/src/assets/SydneyOperaHouse.webp",
   },
   {
     "name": "Machu Picchu",
     "drop_rate": 3,
     "quantity": 0,
+    "picture": "/src/assets/MachuPicchu.webp",
   },
   {
     "name": "Pyramid of Giza",
     "drop_rate": 2,
     "quantity": 0,
+    "picture": "/src/assets/PyramidOfGiza.webp",
   },
   {
     "name": "Great Wall of China",
