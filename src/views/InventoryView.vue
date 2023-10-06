@@ -6,6 +6,7 @@ const counterInventory = useCounterInventory()
 
 let table_labels = counterInventory.getLabels()
 let table_quantities = counterInventory.getInventory()
+let table_inventory = counterInventory.getInventory()
 
 var estimated_price: any[] = []
 for (let i = 0; i < table_labels.length; i++) {
@@ -28,10 +29,14 @@ for (let i = 0; i < table_labels.length; i++) {
         </div>
         <div class="item" v-for="(items, k) in table_labels" :key="k">
             <div>
+                <!--i want a picture with the url value equals to [...table_inventory][k].picture wich is an url of the picture -->
+                <img style="width:150px; border-radius:60px" :src="table_inventory[k].picture" :alt="[...table_inventory][k].picture"/>
+            </div> 
+            <div>
                 <p>{{ table_labels[k] }}</p>
             </div>
             <div>
-                <p>{{ table_quantities[k].quantity}}</p>
+                <p><b>{{ table_quantities[k].quantity}}</b></p>
             </div>
             <div>
                 <p>{{ estimated_price[k] }}</p>
