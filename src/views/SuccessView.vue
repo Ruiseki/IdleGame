@@ -23,6 +23,9 @@ let table_successes = success.getSuccessList()
         </div>
         <div v-for="(success, k) in table_successes" :key="k">
         <div class="item" v-if="table_successes[k].status == true">
+            <div> <!-- image -->
+                <img style="width:140px; border-radius:60px" :src="table_successes[k].image" :alt="[...table_successes][k].name"/>
+            </div>
 
             <div>
                 <p>{{ table_successes[k].name }}</p>

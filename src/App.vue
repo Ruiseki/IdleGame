@@ -1,8 +1,9 @@
 <script setup lang="ts">
     import { RouterLink, RouterView } from 'vue-router'
-    import { useCounterStore, useCounterMoney, useCounterInventory } from "@/stores/counter"
+    import { useCounterStore, useCounterMoney, useCounterInventory, useCounterSuccess } from "@/stores/counter"
     import { ref, } from 'vue'
 
+    let success = useCounterSuccess()
     let studentNumber = useCounterStore()
     let money = useCounterMoney()
     let inventory = useCounterInventory()
@@ -10,13 +11,12 @@
 
     let storedUsername = localStorage.getItem('username')
 
-    console.log(storedUsername);
-    
+    if(storedUsername != null) studentNumber.startClock()
     
     async function createAccount() {
         let login = document.getElementById("login-anticlick")
 
-        await fetch('http://127.0.0.1:48756/login', {
+        await fetch('http://10.57.33.202:48756/login', {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/json',
@@ -26,8 +26,8 @@
         .then(result => result.json())
         .then(json => {
             username.value = `${username.value}#${json.tag}`
-            login.style.display = "none"
             localStorage.setItem('username', username.value)
+            location.reload()
         })
         .catch(err => location.reload())
     }
@@ -43,6 +43,9 @@
     </div>
     <header id="header">
         <div id="stats">
+            <div>
+                <p>{{ storedUsername }}</p>
+            </div>
             <div class="ressources">
                 <p>{{ `${Math.floor(studentNumber.student)}` }} Students 🧑‍🎓</p>
                 <p>{{ `${studentNumber.mainCoef / 5}` }} student(s)/sec</p>
@@ -86,6 +89,7 @@
         position: absolute;
         width: 100vw;
         height: 100vh;
+        background-color: black;
     }
 
     #login {
@@ -97,7 +101,6 @@
         height: 50%;
         left: 30vw;
         top: 25vh;
-        background-color: rgb(88, 34, 34);
     }
 
     #login-title {

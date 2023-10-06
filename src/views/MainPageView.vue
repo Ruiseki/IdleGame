@@ -30,6 +30,7 @@
     #upgrades {
         width: 40vw;
         padding: 2rem;
+        overflow: scroll;
     }
 
     .upgrade {

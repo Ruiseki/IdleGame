@@ -69,6 +69,50 @@ let upgradeListRef = [
         'itemName': 'Great Wall of China',
         'quantity': '7'
     },
+    {
+        'name': 'Army Control',
+        'level': '0',
+        'coefBonus': '10000',
+        'moneyCoefBonus': '0',
+        'coefDropRate': '0',
+        'cost': '100000000',
+        'levelCap': '10',
+        'itemName': null,
+        'quantity': null
+    },
+    {
+        'name': 'Overturn',
+        'level': '0',
+        'coefBonus': '20000',
+        'moneyCoefBonus': '0',
+        'coefDropRate': '0',
+        'cost': '500000000',
+        'levelCap': '10',
+        'itemName': null,
+        'quantity': null
+    },
+    {
+        'name': 'World War',
+        'level': '0',
+        'coefBonus': '50000',
+        'moneyCoefBonus': '1',
+        'coefDropRate': '0',
+        'cost': '3000000000',
+        'levelCap': '10',
+        'itemName': null,
+        'quantity': null
+    },
+    {
+        'name': 'Space Travel',
+        'level': '0',
+        'coefBonus': '500000',
+        'moneyCoefBonus': '0',
+        'coefDropRate': '0',
+        'cost': '1000000000000',
+        'levelCap': '10',
+        'itemName': null,
+        'quantity': null
+    },
 ]
 let upgradeStr = localStorage.getItem('lastUpgrade')
 

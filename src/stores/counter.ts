@@ -110,14 +110,26 @@ export const useCounterStore = defineStore('counter', () => {
   const student = ref(Number.parseInt(backup.student))
   const mainCoef = ref(Number.parseInt(backup.mainCoef))
   const clickCoef = ref(Number.parseInt(backup.clickCoef))
+  let clockId = null;
 
-  // add student in the time
-  setInterval(() => { 
-    // 5000 -> calibrated value
-    student.value += mainCoef.value / 50;
-    backup.student = student.value;
-    saveData(backup);
-  }, 100)
+  function startClock()
+  {
+    console.log('start clock');
+    
+    // add student in the time
+    clockId = setInterval(() => { 
+      // 5000 -> calibrated value
+      student.value += mainCoef.value / 50;
+      backup.student = student.value;
+      saveData(backup);
+    }, 100)
+  }
+
+  function stopClock()
+  {
+    if(clockId != null)
+      clearInterval(clockId);
+  }
 
   function mainClick()
   {
@@ -128,12 +140,13 @@ export const useCounterStore = defineStore('counter', () => {
 
   function reset()
   {
+    stopClock()
     let name = localStorage.getItem('username')
     let username = name.substring(0, name?.length - 5)
     let tagarr = name.split('#')
     let tag = tagarr[tagarr.length - 1]
 
-    fetch('http://127.0.0.1:48756/reset', {
+    fetch('http://10.57.33.202:48756/reset', {
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json',
@@ -160,7 +173,7 @@ export const useCounterStore = defineStore('counter', () => {
     location.reload()
   }
 
-  return { student, mainCoef, clickCoef, mainClick, reset }
+  return { student, mainCoef, startClock, stopClock, clickCoef, mainClick, reset }
 })
 
 export const useCounterMoney = defineStore('counterMoney', () => {
@@ -298,7 +311,10 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 0,
       reward: 0,
       status: true,
-      date: new Date().toLocaleString()
+      date: new Date().toLocaleString(),
+      image: "/src/assets/GoodMove.webp"
+
+      
     },
     {
       name: "Claude Money $$$",
@@ -307,7 +323,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 1000,
       reward: 10,
       status: false,
-      date: null
+      date: null,
+      image: "/src/assets/ClaudeMoney.webp"
     },
     {
       name: "Lionel RICH-ie",
@@ -316,7 +333,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 1000000,
       reward: 100,
       status: false,
-      date: null
+      date: null,
+      image: "/src/assets/Lionel.webp"
     },
     {
       name: "I'm Clint rich wood",
@@ -325,7 +343,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 1000000000,
       reward: 10000,
       status: false,
-      date: null
+      date: null,
+      image: "/src/assets/ClinRichWood.webp"
     },
     {
       "name": "Jeff Pessos",
@@ -334,7 +353,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       "quantity": 100000000000,
       "reward": 100000,
       "status": false,
-      "date": null
+      "date": null,
+      image: "/src/assets/JeffPessos.png"
     },
     {
       name: "Earth Owner",
@@ -343,7 +363,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 1000000000000,
       reward: 1000000,
       status: false,
-      date: null
+      date: null,
+      image: "/src/assets/EarthOwner.png"
     },
     {
       name: "First step",

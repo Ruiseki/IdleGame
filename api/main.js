@@ -13,7 +13,8 @@ export const app = Express()
 export const corsOptions = {
     origin : [
         'http://localhost:5173',
-        'http://127.0.0.1:5173'
+        'http://127.0.0.1:5173',
+        'http://10.57.33.202:5173'
     ],
     optionsSuccessStatus : 200,
     methods : ['GET', 'POST', 'PUT', 'DELETE']
