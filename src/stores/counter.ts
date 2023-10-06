@@ -11,6 +11,70 @@ const backupObjectRef = {
     moneyCoef: '1'
   }
 
+const inventoryRef = [
+  {
+    "name": "Statue of Liberty",
+    "drop_rate": 30,
+    "quantity": 0,
+    "picture": "/src/assets/StatueOfLiberty.webp",
+  },
+  {
+    "name": "Big Ben",
+    "drop_rate": 20,
+    "quantity": 0,
+    "picture": "/src/assets/BigBen.webp",
+  },
+  {
+    "name": "Eiffel Tower",
+    "drop_rate": 12,
+    "quantity": 0,
+    "picture": "/src/assets/eiffel_tower.webp",
+  },
+  {
+    "name": "Winter Palace",
+    "drop_rate": 10,
+    "quantity": 0,
+    "picture": "/src/assets/WinterPalace.webp",
+  },
+  {
+    "name": "Taj Mahal",
+    "drop_rate": 8,
+    "quantity": 0,
+  },
+  {
+    "name": "Parthenon",
+    "drop_rate": 5,
+    "quantity": 0,
+  },
+  {
+    "name": "Colosseum",
+    "drop_rate": 5,
+    "quantity": 0,
+    "picture": "/src/assets/Colosseum.webp",
+  },
+  {
+    "name": "Sydney Opera House",
+    "drop_rate": 4,
+    "quantity": 0,
+  },
+  {
+    "name": "Machu Picchu",
+    "drop_rate": 3,
+    "quantity": 0,
+  },
+  {
+    "name": "Pyramid of Giza",
+    "drop_rate": 2,
+    "quantity": 0,
+  },
+  {
+    "name": "Great Wall of China",
+    "drop_rate": 1,
+    "quantity": 0,
+    "picture": "/src/assets/GreatWallOfChina.webp",
+  }
+]
+
 let backupStr = localStorage.getItem('mainStat')
 if (backupStr == null)
 {

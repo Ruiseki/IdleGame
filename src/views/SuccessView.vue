@@ -18,6 +18,9 @@ var table_successes = useCounterSuccess().getSuccessList()
             <div>
                 <p>Status</p>
             </div>
+            <div>
+                    <p> 🏆 </p>
+            </div>
         </div>
         <div v-for="(success, k) in table_successes" :key="k">
         <div class="item" v-if="table_successes[k].status == true">
@@ -32,6 +35,10 @@ var table_successes = useCounterSuccess().getSuccessList()
 
             <div>
                 <p>{{ table_successes[k].status }}</p>
+            </div>
+
+            <div> <!-- Validate check-->
+                <p>✅</p>
             </div>
 
         </div>
