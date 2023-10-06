@@ -15,25 +15,25 @@ const backupObjectRef = {
 const inventoryRef = [
   {
     "name": "Statue of Liberty",
-    "drop_rate": 30,
+    "drop_rate": 40,
     "quantity": 0,
     "picture": "/src/assets/StatueOfLiberty.webp",
   },
   {
     "name": "Big Ben",
-    "drop_rate": 20,
+    "drop_rate": 17,
     "quantity": 0,
     "picture": "/src/assets/BigBen.webp",
   },
   {
     "name": "Eiffel Tower",
-    "drop_rate": 12,
+    "drop_rate": 11,
     "quantity": 0,
     "picture": "/src/assets/eiffel_tower.webp",
   },
   {
     "name": "Winter Palace",
-    "drop_rate": 10,
+    "drop_rate": 9,
     "quantity": 0,
     "picture": "/src/assets/WinterPalace.webp",
   },
@@ -344,7 +344,7 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       date: null
     },
     {
-      name: "Wall-E",
+      name: "Wall-HE !!",
       description: "Have 1 Great Wall of China",
       type: "inventory",
       object: "Great Wall of China",
