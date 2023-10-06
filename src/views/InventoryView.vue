@@ -47,8 +47,9 @@ for (let i = 0; i < table_labels.length; i++) {
 
 <style scoped>
     #items {
-        width: 40vw;
+        width: 38vw;
         padding: 2rem;
+        overflow: scroll;
     }
 
     .item {
