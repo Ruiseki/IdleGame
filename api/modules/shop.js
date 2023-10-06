@@ -1,4 +1,4 @@
-import { app, mysq } from '../main.js';
+import { app, mysqlConnection } from '../main.js';
 
 export function init()
 {

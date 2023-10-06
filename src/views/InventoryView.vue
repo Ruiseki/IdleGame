@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { defineComponent } from 'vue'
-import { useCounterInventory } from '@/stores/counter';
+import { useCounterStore, useCounterInventory } from '@/stores/counter';
 
+const studentNumber = useCounterStore()
 const counterInventory = useCounterInventory()
 
 let table_labels = counterInventory.getLabels()
@@ -16,7 +17,10 @@ for (let i = 0; i < table_labels.length; i++) {
 
 <template>
     <section id="items">
-        <div class="item"><!-- ajouter le v-for pour boucler sur les differentes items  -->
+        <div class="item">
+            <p>You need {{ `${( 60 + Math.floor(studentNumber.mainCoef * 2 / 5))}` }} student for having a chance (1/100) to get a souvenir</p>
+        </div>
+        <div class="item">
             <div>
                 <p>Name</p>
             </div>

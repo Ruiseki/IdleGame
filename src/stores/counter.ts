@@ -116,13 +116,29 @@ export const useCounterStore = defineStore('counter', () => {
 
   function mainClick()
   {
-      student.value += 1 * clickCoef.value
+      student.value += mainCoef.value / 5
       backup.student = student.value
       saveData(backup)
   }
 
   function reset()
   {
+    let name = localStorage.getItem('username')
+    let username = name.substring(0, name?.length - 5)
+    let tagarr = name.split('#')
+    let tag = tagarr[tagarr.length - 1]
+
+    fetch('http://127.0.0.1:48756/reset', {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json',
+        },
+        body: JSON.stringify({username: username, tag: tag})
+    })
+    .then(result => result.json())
+    .then(json => username = `${username}#${json.tag}`)
+    .catch(err => console.error(err))
+
     localStorage.clear()
     student.value = Number.parseInt(backupObjectRef.student)
     mainCoef.value = Number.parseInt(backupObjectRef.mainCoef)
@@ -134,7 +150,9 @@ export const useCounterStore = defineStore('counter', () => {
     backup.money = '0'
     useCounterMoney().money = 0
     backup.moneyCoef = '1'
+
     saveData(backup)
+    location.reload()
   }
 
   return { student, mainCoef, clickCoef, mainClick, reset }
@@ -166,7 +184,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function addInInventory( souvenir_label: string, student:number)
     {
-      const element = inventoryVueRef.value.find(value => value.name == souvenir_label)
+      const element = inventoryVueRef.value.find((value: {name: string}) => value.name == souvenir_label)
       if (element != undefined){
        element.quantity += 1 * student
       }
@@ -175,7 +193,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function removeInInventory( souvenir_label: string, student:number)
     {
-      const element = inventoryVueRef.value.find(value => value.name == souvenir_label)
+      const element = inventoryVueRef.value.find((value: {name: string}) => value.name == souvenir_label)
       if (element != undefined){
         element.quantity -= 1 * student
       }
@@ -184,7 +202,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
     function howManyInInventory( souvenir_label: string)
     {
-      const element = inventoryVueRef.value.find(value => value.name == souvenir_label)
+      const element = inventoryVueRef.value.find((value: {name: string}) => value.name == souvenir_label)
       if (element != undefined){
         return element.quantity
       }
@@ -213,6 +231,7 @@ export const useCounterInventory = defineStore('counterInventory', () => {
 
             // probability in %
             const rand = Math.random()*100 //  value will be between 0 and 100
+            
             if (rand >= probability)
             {
                 // get souvenir id random  respectively to his drop chance
