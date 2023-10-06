@@ -263,7 +263,7 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
   let money = Money.money
 
   const Inventory = useCounterInventory()
-  let inventory_now = Inventory.inventory
+  let inventory_now = Inventory.getInventory()
 
   const success_list = ref([
     {
