@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
+
 // TO DO : timestamp
 
 const backupObjectRef = {
@@ -240,6 +241,16 @@ export const useCounterInventory = defineStore('counterInventory', () => {
   })
 
 export const useCounterSuccess = defineStore('counterSuccess', () => {
+
+  const Store = useCounterStore() 
+  let students = Store.student
+
+  const Money = useCounterMoney()
+  let money = Money.money
+
+  const Inventory = useCounterInventory()
+  let inventory_now = Inventory.inventory
+
   const success_list = ref([
     {
       name: "Good move",
@@ -247,78 +258,105 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       type: "troll",
       quantity: 0,
       reward: 0,
-      status: true
+      status: true,
+      date: new Date().toLocaleString()
+    },
+    {
+      name: "Claude Money $$$",
+      description: "have 1 000$",
+      type: "money",
+      quantity: 1000,
+      reward: 10,
+      status: false,
+      date: null
     },
     {
       name: "I'm Clint rich wood",
       description: "have 1 000 000 000$",
       type: "money",
       quantity: 1000000000,
-      reward: 0,
-      status: false
+      reward: 10000,
+      status: false,
+      date: null
     },
     {
       name: "First step",
       description: "Have 1 Statue of Liberty",
-      type: "Statue of Liberty",
+      type: "inventory",
+      object: "Statue of Liberty",
       quantity: 1,
       reward: 100,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "Freedom",
       description: "Have 100 Statue of Liberty",
-      type: "Statue of Liberty",
+      type: "inventory",
+      object: "Statue of Liberty",
       quantity: 100,
       reward: 1000,  
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "Ding - Dong",
       description: "Have 100 Big Ben",
-      type: "Big Ben",
+      type: "inventory",
+      object: "Big Ben",
       quantity: 100,
-      reward: false
+      reward: false,
+      date: null
     },
     {
       name: "French Baguette",
       description: "Have 100 Eiffel Tower",
-      type: "Eiffel Tower",
+      type: "inventory",
+      object: "Eiffel Tower",
       quantity: 100,
       reward: 1000,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "winter is coming",
       description: "Have 50 Winter Palace",
-      type: "Winter Palace",
+      type: "inventory",
+      object: "Winter Palace",
       quantity: 50,
       reward: 1000,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "Wall-E",
       description: "Have 1 Great Wall of China",
-      type: "Great Wall of China",
+      type: "inventory",
+      object: "Great Wall of China",
       quantity: 1,
       reward: 100,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "God of War",
       description: "Have 1 Colosseum",
-      type: "Colosseum",
+      type: "inventory",
+      object: "Colosseum",
       quantity: 1,
       reward: 100,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "Pyramid Of cheddar",
       description: "Have 10 Pyramid of Giza",
-      type: "Pyramid of Giza",
+      type: "inventory",
+      object: "Pyramid of Giza",
       quantity: 10,
       reward: 1000,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "The 7 wonders of the world",
@@ -326,7 +364,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       type: "all",
       quantity: 1,
       reward: 100000,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "influencer",
@@ -334,7 +373,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       type: "students",
       quantity: 1000,
       reward: 1000,
-      status: false
+      status: false,
+      date: null
     },
     {
       name: "youtuber",
@@ -342,14 +382,17 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       type: "students",
       quantity: 10000,
       reward: 2000,
-      status: false
+      status: false,
+      date: null
     },
     {
-      name: "twitcher",
+      name: "Streamer",
       description: "Have 100000 students",
       type: "students",
       quantity: 100000,
       reward: 5000,
+      status: false,
+      date: null
     },
     {
       name: "EL PROFESSOR",
@@ -357,11 +400,33 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       type: "students",
       quantity: 1000000000,
       reward: 100000,
-      status: false
+      status: false,
+      date: null
     }
   ])
 
-  function checkSuccesses(moneyQuantity:number, inventory:any, students:number)
+  function  checkSuccessesStudents(studentsQuantity:number){
+    // for each success
+    for (let i = 0; i < success_list.value.length; i++) {
+      // if the success is not already won
+      const success = success_list.value[i]
+      if (success.status == false)
+      {
+        if (success.type == "students")
+        {
+          if (studentsQuantity >= success.quantity)
+          {
+            // get date in format DD:MM:YY:HH:MM:SS
+            success.date = new Date().toLocaleString()
+            success.status = true
+            alert("You won a success : " + success.name)
+          }
+        }
+      }
+    }  
+  }
+
+  function checkSuccessesMoneyInventory(moneyQuantity:number, inventory:any)
   {
     // for each success
     for (let i = 0; i < success_list.value.length; i++) {
@@ -373,6 +438,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
         {
           if (moneyQuantity >= success.quantity)
           {
+            // get date in format DD:MM:YY:HH:MM:SS
+            success.date = new Date().toLocaleString()
             success.status = true
             alert("You won a success : " + success.name)
           }
@@ -380,37 +447,59 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
         else if (success.type == "all")
         {
           let successAll = true
-          for (let j = 0; j < inventory.length; j++) {
-            if (inventory.quantity[j] == 0)
+          
+          inventory.forEach((element:any) => {
+            if (element.quantity == 0)
             {
               successAll = false
-              break
             }
-          }
+          })
           if (successAll)
           {
+            // get date in format DD:MM:YY:HH:MM:SS
+            success.date = new Date().toLocaleString()
             success.status = true
             alert("You won a success : " + success.name)
           }
-        }
-        else if (success.type == "students"){
-          if (students >= success.quantity)
-          {
-            success.status = true
-            alert("You won a success : " + success.name)
+        }else if(success.type == "troll"){
+          // get date in format DD:MM:YY:HH:MM:SS
+          success.date = new Date().toLocaleString()
+          success.status = true
+        } else if (success.type == "inventory"){
+          inventory.forEach((element:any) => {
+            if (element.name == success.object)
+            {
+              if (element.quantity >= success.quantity)
+              {
+                // get date in format DD:MM:YY:HH:MM:SS
+                success.date = new Date().toLocaleString()
+                success.status = true
+                alert("You won a success : " + success.name)
+                
+              }
+            }
           }
+          )
         }
-      }
+        
     }
   }
-  setInterval(() => { checkSuccesses(backup.money, backup.inventory, backup.student) }, 1000)
+}
+  setInterval(() => { 
+    students = Store.student
+    money = Money.money
+    inventory_now = Inventory.inventory
+    checkSuccessesMoneyInventory(money, [...inventory_now])
+    checkSuccessesStudents(students)
+  }, 1000)
 
   function getSuccessList()
   {
     return success_list
   }
 
-  return {success_list, getSuccessList, checkSuccesses}
+  return {success_list, getSuccessList, checkSuccessesMoneyInventory, checkSuccessesStudents}
+
 })
 
 
