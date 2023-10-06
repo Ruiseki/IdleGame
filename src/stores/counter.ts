@@ -490,7 +490,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 10,
       reward: 10,
       status: false,
-      date: null
+      date: null,
+      image: "/src/assets/Tutor.png"
     },
     {
       name: "teacher",
@@ -499,7 +500,8 @@ export const useCounterSuccess = defineStore('counterSuccess', () => {
       quantity: 100,
       reward: 100,
       status: false,
-      date: null
+      date: null,
+      image: "/src/assets/Teacher.png"
     },
     {
       name: "influencer",
