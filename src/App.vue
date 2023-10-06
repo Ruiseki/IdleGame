@@ -6,21 +6,38 @@
     let studentNumber = useCounterStore()
     let money = useCounterMoney()
     let inventory = useCounterInventory()
-    let name = ref("");
+    let username = ref("");
 
-    function createAccount() {
+    let storedUsername = localStorage.getItem('username')
+
+    console.log(storedUsername);
+    
+    
+    async function createAccount() {
         let login = document.getElementById("login-anticlick")
-        if( login != null ) {
+
+        await fetch('http://127.0.0.1:48756/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            body: JSON.stringify({username: username.value})
+        })
+        .then(result => result.json())
+        .then(json => {
+            username.value = `${username.value}#${json.tag}`
             login.style.display = "none"
-        }
+            localStorage.setItem('username', username.value)
+        })
+        .catch(err => location.reload())
     }
 </script>
 
 <template>
-    <div id="login-anticlick">
+    <div id="login-anticlick" v-if="!storedUsername">
         <div id="login">
             <p id="login-title">Choose a name</p>
-            <input type="text" id="login-input" maxlength="17" v-model="name"/>
+            <input type="text" id="login-input" name="username" maxlength="17" v-model="username"/>
             <button id="login-button" @click="createAccount()">Start</button>
         </div>
     </div>
@@ -50,7 +67,7 @@
             <!-- <img src="/" alt="Image totally legal took from the discord channel Warning zone "/> -->
             <button @click="studentNumber.mainClick()" id="spam-button">Spam me for student</button>
             <!-- @eventGetSouvenir takes the probability in %, the number of students and the groups width -->
-            <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir(10, studentNumber.student, 60) ; studentNumber.student = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
+            <button @click="money.mainClick(studentNumber.student); inventory.eventGetSouvenir(99, studentNumber.student, 60 + ((studentNumber.mainCoef *2)/ 5)) ; studentNumber.student = 0">Take students on a trip 🧑‍🎓</button><!-- ajouter la fonction qui depense les etudiants pour donner de l'argent -->
             <button @click="studentNumber.reset">Reset la partie</button>
         </section>
         <RouterView />

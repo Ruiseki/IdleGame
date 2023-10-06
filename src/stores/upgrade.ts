@@ -20,7 +20,7 @@ let upgradeListRef = [
         'coefBonus': '50',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
-        'cost': '500',
+        'cost': '1000',
         'levelCap': '25',
         'itemName': 'Big Ben',
         'quantity': '2'
@@ -31,7 +31,7 @@ let upgradeListRef = [
         'coefBonus': '100',
         'moneyCoefBonus': '0.3',
         'coefDropRate': '0',
-        'cost': '1000',
+        'cost': '10000',
         'levelCap': '20',
         'itemName': 'Eiffel Tower',
         'quantity': '1'
@@ -39,10 +39,10 @@ let upgradeListRef = [
     {
         'name': 'Propaganda',
         'level': '0',
-        'coefBonus': '0.5',
+        'coefBonus': '500',
         'moneyCoefBonus': '0',
         'coefDropRate': '0',
-        'cost': '5000',
+        'cost': '50000',
         'levelCap': '20',
         'itemName': 'Winter Palace',
         'quantity': '5'
@@ -50,10 +50,10 @@ let upgradeListRef = [
     {
         'name': 'Agil School',
         'level': '0',
-        'coefBonus': '0.5',
+        'coefBonus': '1000',
         'moneyCoefBonus': '0.5',
         'coefDropRate': '0',
-        'cost': '10000',
+        'cost': '500000',
         'levelCap': '15',
         'itemName': 'Colosseum',
         'quantity': '5'
@@ -61,10 +61,10 @@ let upgradeListRef = [
     {
         'name': 'Corruption',
         'level': '0',
-        'coefBonus': '1.5',
-        'moneyCoefBonus': '-0.3',
+        'coefBonus': '5000',
+        'moneyCoefBonus': '-0.5',
         'coefDropRate': '0',
-        'cost': '50000',
+        'cost': '1000000',
         'levelCap': '10',
         'itemName': 'Great Wall of China',
         'quantity': '7'
@@ -109,7 +109,10 @@ export const useUpgrade = defineStore('upgrade', () => {
                 backupClone.money = money.money.toString()
                 setBackup(backupClone)
             }
-            else return;
+            else {
+                alert("You don't have enough money")
+                return;
+            }
             upgradeList.value[index].cost = (Number.parseInt(upgradeList.value[index].cost) * 2).toString();
             saveUpgrade()
         }
