@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { RouterLink, RouterView } from 'vue-router'
     import { useCounterStore, useCounterMoney, useCounterInventory } from "@/stores/counter"
-    import { reactive, ref, toRefs } from 'vue'
+    import { ref, } from 'vue'
 
     let studentNumber = useCounterStore()
     let money = useCounterMoney()
