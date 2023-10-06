@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { defineComponent } from 'vue'
-import { useCounterSuccess } from '@/stores/counter';
+import { useCounterSuccess  } from '@/stores/counter';
 
-var table_successes = useCounterSuccess().getSuccessList()
-
+let success = useCounterSuccess()
+let table_successes = success.getSuccessList()
 </script>
 
 <template>
     <section id="items">
-        <div class="item"><!-- ajouter le v-for pour boucler sur les differentes items  -->
+        <div class="item">
             <div>
                 <p>Success</p>
             </div>
@@ -16,7 +15,7 @@ var table_successes = useCounterSuccess().getSuccessList()
                 <p>description</p>
             </div>
             <div>
-                <p>Status</p>
+                <p>Date</p>
             </div>
             <div>
                     <p> 🏆 </p>
@@ -34,7 +33,7 @@ var table_successes = useCounterSuccess().getSuccessList()
             </div>
 
             <div>
-                <p>{{ table_successes[k].status }}</p>
+                <p>{{ table_successes[k].date }}</p>
             </div>
 
             <div> <!-- Validate check-->
